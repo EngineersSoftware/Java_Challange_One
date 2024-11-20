@@ -5,6 +5,7 @@ public class App {
     static String[] planets = { "Marte", "Júpiter", "Saturno" };
     static double[] distance = { 225.0, 628.0, 1426.0 };
     static String[] ships = { "Exploradora", "Carga pesada", "Velocidad máxima" };
+    static String[] issued = {"Meteroritos", "Ateroides", "Turbolencias" };
     static double[] speeds = { 20000.0, 15000.0, 30000.0 };
 
     // Verificación de la selección que hace el usuario
