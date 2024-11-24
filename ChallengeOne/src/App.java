@@ -1,19 +1,23 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
+    static int option;
+    static int progress = 0;
     static String[] planets = { "Marte", "Júpiter", "Saturno" };
+    static String[] ships = { "Exploradora", "Carga pesada", "Turbo" };
+    static String[] troubles = {"Meteroritos", "Asteroides", "Turbulencias","Falta de combustible"};
     static double[] distance = { 225.0, 628.0, 1426.0 };
-    static String[] ships = { "Exploradora", "Carga pesada", "Velocidad máxima" };
-    static String[] issued = {"Meteroritos", "Ateroides", "Turbolencias" };
     static double[] speeds = { 20000.0, 15000.0, 30000.0 };
+    static Random random = new Random();
+ 
 
     // Verificación de la selección que hace el usuario
     static boolean selectPlanet = false;
     static boolean selectShip = false;
 
     public static void main(String[] args) throws Exception {
-        int option;
         do {
             showMenu();
             option = scanner.nextInt();
@@ -79,13 +83,14 @@ public class App {
         } else {
             System.err.println("\033[31mSelección no válida. Por favor, intenta de nuevo.\033[0m");
         }
+
     }
 
     // Iniciar la simulación
     public static void iniciarSimulacion() {
         if (selectPlanet && selectShip) {
             System.out.println("\n\033[1;34mIniciando simulación de viaje...\033[0m");
-            // Aquí puedes agregar más detalles del viaje, como la duración
+            events();
         } else {
             System.err.println("\033[31m¡ERROR! Debes seleccionar un planeta y una nave antes de iniciar el viaje.\033[0m");
         }
@@ -97,13 +102,75 @@ public class App {
 
     }
 
-    // Métodos auxiliares.
-    public static void imprimirPlanetas() {
-
+    public static void events() {
+        var random= new Random();
+        var distanceTrouble1=random.nextInt(1,30);
+        var distanceTrouble2=random.nextInt(31,60);
+        var distanceTrouble3=random.nextInt(61,100);
+        var fix= random.nextInt(1,5);    
+        boolean isFixed = true;
+        System.out.println("********** HA COMENZADO EL RECORRIDO **********");
+        // va aumentando el progreso del viaje, se tendra que encontrar con 3 eventos durante el recorrido
+        while(progress<=100) {
+            progress++;
+             if(progress == distanceTrouble1) {
+                var trouble= random.nextInt(1,4)-1;
+                System.out.println("\n Se ha presentado un inconveniente : " + troubles[trouble].toUpperCase() );
+                System.out.println("Para arreglar el problema, debe adivinar un numero del 1 al 5");
+                if (fixEvent(isFixed,fix) == false){
+                    break;
+                }
+            }else if (progress == distanceTrouble2) {
+                var trouble= random.nextInt(1,4)-1;
+                System.out.println("\n Se ha presentado un inconveniente : " +troubles[trouble].toUpperCase());
+                System.out.println("Para arreglar el problema, debe adivinar un numero del 1 al 5");
+                if (fixEvent(isFixed,fix) == false){
+                    break;
+                }
+            }else if(progress == distanceTrouble3){
+                var trouble= random.nextInt(1,4)-1;
+                System.out.println("\n Se ha presentado un inconveniente : " + troubles[trouble].toUpperCase());
+                System.out.println("Para arreglar el problema, debe adivinar un numero del 1 al 5");
+                if (fixEvent(isFixed,fix) == false){
+                    break;
+                }
+            }else{
+                if (progress == 100) {
+                    System.out.println("\n ***** Felicidades, hemos llegado al destino. *****");
+                    break;
+                }else{
+                System.out.print(progress+"% ..");
+            }
+         }
+        }
     }
 
-    public static void lanzarEvento() {
-
+    // esta funcion es para que el usuario arregle el evento adivinando un numero
+    public static boolean fixEvent(boolean isFixed, int fix){
+        int tempts =3;
+        while (isFixed == true) {
+            System.out.println("Ingrese un numero: ");
+            option= scanner.nextInt();
+            if (option == fix) {
+                System.out.println("***** Haz arreglado el problema. Continuamos! *****");
+                break;
+            }else{
+                tempts-=1;
+                if (tempts>0) {
+                    System.out.println("Tienes "+tempts+" intentos");
+                    if (fix < option) {
+                        System.out.println("PISTA: Es menor que: " + option );
+                    }else{
+                        System.out.println("PISTA: Es mayor que: " + option );
+                    }
+                }else{
+                    System.out.println("***** No pudiste resolverlo. La nave caerá. *****");
+                    isFixed=false;
+                    break;
+                }
+            }
+        }
+        return isFixed;
     }
 
     public static void detenerNave() {
