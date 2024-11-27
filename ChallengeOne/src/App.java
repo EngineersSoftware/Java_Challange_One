@@ -2,13 +2,16 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class App {
- 
+ static Scanner scanner = new Scanner(System.in);
+
+
 
     // Verificación de la selección que hace el usuario
     static boolean selectPlanet = false;
     static boolean selectShip = false;
 
     public static void main(String[] args) throws Exception {
+        int option;
         do {
             showMenu();
             option = scanner.nextInt();
