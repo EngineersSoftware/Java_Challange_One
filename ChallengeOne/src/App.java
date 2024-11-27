@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class App {
-;
  
 
     // Verificación de la selección que hace el usuario
