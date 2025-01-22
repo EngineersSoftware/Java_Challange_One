@@ -230,7 +230,7 @@ public class App {
 
         // Determinar puntos donde ocurrirán los eventos (entre 40 y 80 del progreso)
         for (int i = 0; i < numberOfEvents; i++) {
-            eventPoints[i] = 40 + random.nextInt(61); // Números entre 40 y 80
+            eventPoints[i] = 30 + random.nextInt(61); // Números entre 40 y 80
         }
 
         // Ordenar los puntos de manera manual (usando bubble sort)
@@ -356,13 +356,13 @@ public class App {
 
         // Añadir mensaje de estado
         if (percentage < 30) {
-            System.out.print("Iniciando sistemas...");
+            System.out.print(ORANGE+"¡ADVERTENCIA! La nave ha sufrido unos daños....."+RESET);
         } else if (percentage < 60) {
-            System.out.print("Verificando componentes...");
+            System.out.print(ORANGE+"¡ADVERTENCIA! La nave ha sufrido unos daños....."+RESET);
         } else if (percentage < 90) {
-            System.out.print("Preparando para despegue...");
+            System.out.print("");
         } else {
-            System.out.print("¡Sistemas listos!");
+            System.out.print("");
         }
 
         if (percentage == 100)
